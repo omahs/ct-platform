@@ -7,7 +7,7 @@ This project aims to provide you with a fully-automated Kubernetes platform with
 ## Preparation
 
 Make sure you have:
-- A Github account with escalated permissions to set secrets.
+- A Github account with escalated permissions to create secrets.
 - A GCP service account with escalated permissions to create resources. Note: please remove the escalated permissions when done with pipeline steps `day-0` and `day-1` for security reasons.
 - A GCP storage bucket for storing Terraform state.
 - A new RSA keypair with no passphrase for ArgoCD to access the Github repo. The public key of this keypair has to be then uploaded to the deploy keys of the repository; the private key has to be Base64-encoded and set as a Github secret variable `ARGOCD_CREDENTIALS_KEY`. You can generate the keypair by running:
@@ -28,7 +28,7 @@ We try to keep as little secret variables as possible by design. For the sake of
 
 ### Non-secret variables
 
-For non-secret variables, simply edit/add them in the `.env` file, which gets sourced during pipeline runs, e.g.:
+For non-secret variables, simply edit/add them in the `.env` file, which gets parsed during pipeline runs, e.g.:
 
 ```dotenv
 TF_VAR_name="ct-platform"
@@ -56,11 +56,12 @@ Run the `day-1-destroy` workflow in Github to destroy `day-1`. After successful 
 
 ## Access
 
-1. Ensure your administrator has given enough permissions, e.g. your IAM user is assigned with `roles/container.developer` role.
-2. Install Google Cloud CLI as described here: https://cloud.google.com/sdk/docs/install-sdk.
-3. Acquire the cluster related info by running `gcloud container clusters list`.
-4. Follow the instructions on how to access the Kubernetes cluster here: https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl. Run `gcloud auth login` and follow the on-screen instructions and pick the correct Google project. Next run `gcloud  get generate 
-5. Verify you're able to access the cluster and see the nodes by running: `kubectl get nodes`.
+1. Ensure your administrator has given enough permissions, e.g. `roles/container.developer` role is added to your IAM user.
+2. Install and initialize Google Cloud CLI as described here: https://cloud.google.com/sdk/docs/install-sdk.
+3. Follow the instructions on how to access the Kubernetes cluster here: https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl.
+   1. Run `gcloud auth login` and follow the on-screen instructions and pick the correct Google project.
+   2. Run `gcloud container clusters get-credentials` and pass `name`, as well as `region` or `zone` flags.
+4. Verify you're able to access the cluster and see the nodes by running: `kubectl get nodes`.
 
 ## Applications
 
