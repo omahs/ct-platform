@@ -1,4 +1,4 @@
-# application-platform
+# ct-platform
 
 This project aims to provide you with a fully-automated Kubernetes platform with focus on monitoring, security, accessability, and ease-of-use.
 
@@ -14,31 +14,31 @@ Make sure you have:
   - `compute.googleapis.com`
   - `container.googleapis.com`
   - `dns.googleapis.com`
-- A new RSA keypair with no passphrase for ArgoCD to access the Github repo. The public key of this keypair has to be then uploaded to the deploy keys of the repository; the private key has to be set as a secret variable `ARGOCD_CREDENTIALS_KEY`. You can generate the keypair by running:
+- A new RSA keypair with no passphrase for ArgoCD to access the Github repo. The public key of this keypair has to be then uploaded to the deploy keys of the repository; the private key has to be Base64-encoded and set as a Github secret variable `ARGOCD_CREDENTIALS_KEY`. You can generate the keypair by running:
 
 ```shell
-ssh-keygen -b 2048 -t rsa -f /tmp/id_rsa -q -N "" -C rpch-alligator
+ssh-keygen -b 2048 -t rsa -f /tmp/id_rsa -q -N "" -C ct-platform
 ```
 
-## Secret variables
+### Secret variables
 
 We try to keep as little secret variables as possible by design. For the sake of convenience, define the following secrets in your Github secrets section:
 
-- `GOOGLE_APPLICATION_CREDENTIALS` = Base64-encoded GCP service account credentials.
+- `GOOGLE_CREDENTIALS` = Base64-encoded GCP service account credentials.
 - `GOOGLE_PROJECT` = GCP project ID.
 - `GOOGLE_REGION` = GCP project default region.
 - `GOOGLE_BUCKET` = GCP bucket for storing Terraform state.
 - `ARGOCD_CREDENTIALS_KEY` = Base64-encoded ArgoCD credentials private key from the previously generated keypair.
 
-## Non-secret variables
+### Non-secret variables
 
 For non-secret variables, simply edit/add them in the `.env` file, which gets sourced during pipeline runs, e.g.:
 
 ```dotenv
-TF_VAR_name="rpch-alligator"
-TF_VAR_domain="rpch.tech"
-TF_VAR_argocd_repo_url="git@github.com:Rpc-h/infrastructure.git"
-TF_VAR_argocd_credentials_url="git@github.com:Rpc-h"
+TF_VAR_name="ct-platform"
+TF_VAR_domain="ctdapp.net"
+TF_VAR_argocd_repo_url="git@github.com:hoprnet/infrastructure.git"
+TF_VAR_argocd_credentials_url="git@github.com:hoprnet"
 ```
 
 ## Installation
@@ -69,31 +69,6 @@ Run the `day-1-destroy` workflow in Github to destroy `day-1`. After successful 
 ## Applications
 
 These are just some convenience commands for developers that might come in handy. Please see the official upstream docs of the respective applications for more info.
-
-### Authelia
-
-To generate `authelia` password, run the following command:
-
-```shell
-export AUTHELIA_PASSWORD="your-password"
-docker run authelia/authelia:latest authelia crypto hash generate argon2 --password ${AUTHELIA_PASSWORD}
-```
-
-### ArgoCD
-
-To retrieve ArgoCD password run: 
-
-```shell
-kubectl -n argocd get secrets argocd-initial-admin-secret -o yaml | yq -r '.data["password"]' | base64 -d
-```
-
-### Grafana
-
-To retrieve Grafana password run:
-
-```shell
-kubectl -n monitoring get secrets kube-prometheus-stack-grafana -o yaml | yq -r '.data["admin-password"]' | base64 -d
-```
 
 ### Sealed Secrets
 
