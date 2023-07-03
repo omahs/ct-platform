@@ -11,9 +11,10 @@ Make sure you have:
 - A GCP service account with escalated permissions to create resources. Note: please remove the escalated permissions when done with pipeline steps `day-0` and `day-1` for security reasons.
 - A GCP storage bucket for storing Terraform state.
 - GCP APIs enabled:
-  - `compute.googleapis.com`
-  - `container.googleapis.com`
-  - `dns.googleapis.com`
+  - `compute.googleapis.com`: https://console.cloud.google.com/apis/api/compute.googleapis.com
+  - `container.googleapis.com`: https://console.cloud.google.com/apis/api/container.googleapis.com
+  - `dns.googleapis.com`: https://console.cloud.google.com/apis/api/dns.googleapis.com
+  - `iam.googleapis.com`: https://console.cloud.google.com/apis/api/iam.googleapis.com
 - A new RSA keypair with no passphrase for ArgoCD to access the Github repo. The public key of this keypair has to be then uploaded to the deploy keys of the repository; the private key has to be Base64-encoded and set as a Github secret variable `ARGOCD_CREDENTIALS_KEY`. You can generate the keypair by running:
 
 ```shell
