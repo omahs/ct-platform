@@ -19,14 +19,11 @@ resource "kubernetes_limit_range" "argocd" {
       type = "Container"
       default = {
         cpu    = "300m"
-        memory = "1024Mi"
+        memory = "256Mi"
       }
-    }
-    limit {
-      type = "Pod"
-      max = {
-        cpu    = "300m"
-        memory = "1024Mi"
+      default_request = {
+        cpu    = "100m"
+        memory = "64Mi"
       }
     }
     limit {
@@ -35,7 +32,6 @@ resource "kubernetes_limit_range" "argocd" {
         storage = "10G"
       }
     }
-
   }
 }
 
@@ -47,9 +43,11 @@ resource "kubernetes_resource_quota" "argocd" {
 
   spec {
     hard = {
-      "limits.storage" = "10G"
-      "limits.cpu"     = "300m"
-      "limits.memory"  = "1024Mi"
+      "limits.storage"  = "10G"
+      "limits.cpu"      = "1000m"
+      "limits.memory"   = "1024Mi"
+      "requests.cpu"    = "1000m"
+      "requests.memory" = "1024Mi"
     }
   }
 }

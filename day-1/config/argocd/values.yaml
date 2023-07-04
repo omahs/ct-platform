@@ -1,4 +1,11 @@
 server:
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
   ingress:
     enabled: true
     ingressClassName: traefik
@@ -16,6 +23,38 @@ dex:
 configs:
   params:
     application.namespaces: "*"
+controller:
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+redis:
+  resources:
+    limits:
+      cpu: 200m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 64Mi
+applicationSet:
+  resources:
+     limits:
+       cpu: 100m
+       memory: 128Mi
+     requests:
+       cpu: 100m
+       memory: 128Mi
+notifications:
+  resources:
+     limits:
+       cpu: 100m
+       memory: 128Mi
+     requests:
+       cpu: 100m
+       memory: 128Mi
 repoServer:
   extraContainers:
     - name: argocd-sugar
