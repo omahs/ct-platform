@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://kubernetes-sigs.github.io/external-dns
-    targetRevision: 1.12.1
+    targetRevision: 1.13.0
     chart: external-dns
     plugin:
       env:

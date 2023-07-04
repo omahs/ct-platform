@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: "45.10.1"
+    targetRevision: "47.2.1"
     chart: kube-prometheus-stack
     plugin:
       env:
@@ -67,20 +67,6 @@ spec:
                         severity: critical
                 receivers:
                   - name: "null"
-                  - name: "info"
-                    webhook_configs:
-                      - url: "http://notification-service.monitoring:8080/alertmanager/room/%21DaMkbMrexCDEDGoiup:hoprnet.io"
-                  - name: "warning"
-                    webhook_configs:
-                      - url: "http://notification-service.monitoring:8080/alertmanager/room/%21WxXYnjzPyglBADfuyc:hoprnet.io"
-                  - name: "critical"
-                    webhook_configs:
-                      - url: "http://notification-service.monitoring:8080/alertmanager/room/%21HgRjXaMRVLzZYZPEFg:hoprnet.io"
-                  - name: "telegram"
-                    telegram_configs:
-                      - chat_id: -1001562396359
-                        #bot_token_file: telegram #Enable this in couple versions
-                        bot_token: 6201490054:AAEjF_1ahOhmK1ysT2pD9gNRjIjzIwD1JF4
             kubeStateMetrics:
               enabled: true
             nodeExporter:
@@ -113,29 +99,6 @@ spec:
                       resources:
                         requests:
                           storage: 100Gi
-                additionalScrapeConfigs:
-                  - job_name: hetzner
-                    static_configs:
-                      - targets:
-                          - "78.47.150.194:9100"
-                        labels:
-                          hostname: "hetzner-staging-alpha-1"
-                      - targets:
-                          - "91.107.194.8:9100"
-                        labels:
-                          hostname: "hetzner-staging-alpha-2"
-                      - targets:
-                          - "159.69.122.70:9100"
-                        labels:
-                          hostname: "hetzner-staging-alpha-4"
-                      - targets:
-                          - "49.12.246.83:9100"
-                        labels:
-                          hostname: "hetzner-staging-alpha-3"
-                      - targets:
-                          - "142.132.184.57:9100"
-                        labels:
-                          hostname: "hetzner-staging-alpha-5"
             grafana:
               enabled: true
               adminPassword: ARGOCD_ENV_RANDOM_STRING

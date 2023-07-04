@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://bitnami-labs.github.io/sealed-secrets
-    targetRevision: 2.7.3
+    targetRevision: 2.9.0
     chart: sealed-secrets
     plugin:
       env:
