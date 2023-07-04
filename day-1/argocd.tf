@@ -184,6 +184,8 @@ spec:
 YAML
 
   depends_on = [
-    helm_release.argocd
+    helm_release.argocd,
+    kubernetes_limit_range.argocd,
+    kubernetes_resource_quota.argocd
   ]
 }
