@@ -56,6 +56,13 @@ notifications:
        cpu: 100m
        memory: 128Mi
 repoServer:
+  resources:
+    limits:
+      cpu: 50m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 64Mi
   extraContainers:
     - name: argocd-sugar
       command: ["/var/run/argocd/argocd-cmp-server"]
