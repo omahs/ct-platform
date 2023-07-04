@@ -8,6 +8,37 @@ resource "kubernetes_namespace" "argocd" {
   ]
 }
 
+resource "kubernetes_limit_range" "argocd" {
+  metadata {
+    name      = "argocd"
+    namespace = kubernetes_namespace.argocd.id
+  }
+
+  spec {
+    limit {
+      type = "Container"
+      default = {
+        cpu    = "300m"
+        memory = "1024Mi"
+      }
+    }
+    limit {
+      type = "Pod"
+      max = {
+        cpu    = "300m"
+        memory = "1024Mi"
+      }
+    }
+    limit {
+      type = "PersistentVolumeClaim"
+      max = {
+        storage = "10G"
+      }
+    }
+
+  }
+}
+
 resource "kubernetes_resource_quota" "argocd" {
   metadata {
     name      = "argocd"
@@ -16,11 +47,9 @@ resource "kubernetes_resource_quota" "argocd" {
 
   spec {
     hard = {
-      "requests.cpu"     = "300m"
-      "requests.memory"  = "1Gi"
-      "requests.storage" = "10Gi"
-      "limits.cpu"       = "300m"
-      "limits.memory"    = "1Gi"
+      "limits.storage" = "10G"
+      "limits.cpu"     = "300m"
+      "limits.memory"  = "1024Mi"
     }
   }
 }
