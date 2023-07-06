@@ -43,10 +43,10 @@ resource "kubernetes_resource_quota" "argocd" {
 
   spec {
     hard = {
-      "limits.cpu"       = "1200m"
-      "limits.memory"    = "1380Mi"
-      "requests.cpu"     = "1200m"
-      "requests.memory"  = "1380Mi"
+      "limits.cpu"       = "1500m"
+      "limits.memory"    = "1.5Gi"
+      "requests.cpu"     = "1500m"
+      "requests.memory"  = "1.5Gi"
       "requests.storage" = "10Gi"
     }
   }
