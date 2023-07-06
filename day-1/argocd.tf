@@ -85,11 +85,8 @@ resource "helm_release" "argocd" {
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argo-cd"
   version          = "5.21.0"
-  create_namespace = true
   atomic           = true
   cleanup_on_fail  = true
-  recreate_pods    = true
-  wait             = false
 
   values = [
     file("./config/argocd/values.yaml")
@@ -121,7 +118,9 @@ resource "helm_release" "argocd" {
   }
 
   depends_on = [
-    kubernetes_secret.argocd
+    kubernetes_secret.argocd,
+    kubernetes_limit_range.argocd,
+    kubernetes_resource_quota.argocd
   ]
 }
 
@@ -184,8 +183,6 @@ spec:
 YAML
 
   depends_on = [
-    helm_release.argocd,
-    kubernetes_limit_range.argocd,
-    kubernetes_resource_quota.argocd
+    helm_release.argocd
   ]
 }
