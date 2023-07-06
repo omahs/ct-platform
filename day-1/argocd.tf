@@ -18,12 +18,12 @@ resource "kubernetes_limit_range" "argocd" {
     limit {
       type = "Container"
       default = {
-        cpu    = "300m"
-        memory = "256Mi"
+        cpu    = "100m"
+        memory = "128Mi"
       }
       default_request = {
-        cpu    = "100m"
-        memory = "64Mi"
+        cpu    = "10m"
+        memory = "32Mi"
       }
     }
     limit {
