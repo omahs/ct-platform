@@ -10,7 +10,7 @@ Make sure you have:
 - Created a Github account with escalated permissions to create secrets.
 - Created a GCP service account with escalated permissions to create resources. Note: please remove the escalated permissions when done with pipeline steps `day-0` and `day-1` for security reasons.
 - Created a GCP storage bucket for storing Terraform state.
-- Completed the "OAuth consent screen" as it unfortunately can not be automated: https://console.cloud.google.com/apis/credentials/consent. Some comments:
+- Completed the GCP "OAuth consent screen" as it unfortunately can not be automated: https://console.cloud.google.com/apis/credentials/consent. Some comments:
   - You can use the "Internal" user type if you want just internal users to use the application.
   - Provide the `TF_VAR_domain` value you just set up in `.env` as the value for "Authorized domains".
   - Enable the following scopes:
