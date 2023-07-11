@@ -16,6 +16,8 @@ spec:
             serviceAccount:
               create: false
               name: traefik
+              annotations:
+                iam.gke.io/gcp-service-account: ARGOCD_ENV_CLUSTER_NAME-traefik@ARGOCD_ENV_GOOGLE_PROJECT.iam.gserviceaccount.com
             env:
               TZ: UTC
               URL_PATH: /_oauth
