@@ -7,10 +7,16 @@ This project aims to provide you with a fully-automated Kubernetes platform with
 ## Preparation
 
 Make sure you have:
-- A Github account with escalated permissions to create secrets.
-- A GCP service account with escalated permissions to create resources. Note: please remove the escalated permissions when done with pipeline steps `day-0` and `day-1` for security reasons.
-- A GCP storage bucket for storing Terraform state.
-- A new RSA keypair with no passphrase for ArgoCD to access the Github repo. The public key of this keypair has to be then uploaded to the deploy keys of the repository; the private key has to be Base64-encoded and set as a Github secret variable `ARGOCD_CREDENTIALS_KEY`. You can generate the keypair by running:
+- Created a Github account with escalated permissions to create secrets.
+- Created a GCP service account with escalated permissions to create resources. Note: please remove the escalated permissions when done with pipeline steps `day-0` and `day-1` for security reasons.
+- Created a GCP storage bucket for storing Terraform state.
+- Completed the "OAuth consent screen" as it unfortunately can not be automated: https://console.cloud.google.com/apis/credentials/consent. Some comments:
+  - You can use the "Internal" user type if you want just internal users to use the application.
+  - Provide the `TF_VAR_domain` value you just set up in `.env` as the value for "Authorized domains".
+  - Enable the following scopes:
+    - https://www.googleapis.com/auth/userinfo.email
+    - https://www.googleapis.com/auth/userinfo.profile
+- Created a new RSA keypair with no passphrase for ArgoCD to access the Github repo. The public key of this keypair has to be then uploaded to the deploy keys of the repository; the private key has to be Base64-encoded and set as a Github secret variable `ARGOCD_CREDENTIALS_KEY`. You can generate the keypair by running:
 
 ```shell
 ssh-keygen -b 2048 -t rsa -f /tmp/id_rsa -q -N "" -C ct-platform

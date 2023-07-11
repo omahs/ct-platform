@@ -1,3 +1,4 @@
+#See main.tf for service account roles for external dns
 resource "google_service_account" "external_dns" {
   account_id   = "${var.name}-external-dns"
   display_name = "${var.name}-external-dns"

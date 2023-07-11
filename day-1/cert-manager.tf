@@ -1,3 +1,4 @@
+#See main.tf for service account roles for cert manager
 resource "google_service_account" "cert_manager" {
   account_id   = "${var.name}-cert-manager"
   display_name = "${var.name}-cert-manager"

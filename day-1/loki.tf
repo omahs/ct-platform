@@ -1,3 +1,4 @@
+#See main.tf for service account roles for loki
 resource "google_service_account" "loki" {
   account_id   = "${var.name}-loki"
   display_name = "${var.name}-loki"

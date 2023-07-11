@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: "5.8.8"
+    targetRevision: "5.8.9"
     chart: loki
     plugin:
       env:
@@ -40,13 +40,18 @@ spec:
                   installOperator: false
               lokiCanary:
                 enabled: false
+            backend:
+              replicas: 3
+              persistence:
+                storageClass: main
+                enableStatefulSetAutoDeletePVC: false
             write:
-              replicas: 2
+              replicas: 3
               persistence:
                 storageClass: main
                 enableStatefulSetAutoDeletePVC: false
             read:
-              replicas: 2
+              replicas: 3
               persistence:
                 storageClass: main
                 enableStatefulSetAutoDeletePVC: false

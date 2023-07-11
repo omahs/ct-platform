@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/hoprnet/notification-service
-    targetRevision: preinstalled-dependencies
+    targetRevision: master
     path: deploy/charts
     plugin:
       env:
